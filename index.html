@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Lect. Chetniphat Udornlai — 3D Portfolio</title>
+
+  <meta
+    name="description"
+    content="3D Portfolio of Lect. Chetniphat Udornlai"
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #050505;
+      --text: #f5f5f5;
+      --muted: #929292;
+      --line: rgba(255,255,255,.12);
+      --glass: rgba(15,15,15,.65);
+      --accent: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =========================
+       NAV
+    ========================= */
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 72px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 5vw;
+
+      z-index: 100;
+
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,.75),
+        transparent
+      );
+
+      backdrop-filter: blur(4px);
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    .nav-links a {
+      transition: color .25s ease;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+
+      padding: 120px 8vw 80px;
+
+      overflow: hidden;
+    }
+
+    #heroCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        radial-gradient(
+          circle at 70% 50%,
+          transparent 0%,
+          rgba(0,0,0,.15) 35%,
+          rgba(0,0,0,.9) 100%
+        );
+
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+
+      max-width: 700px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      margin-bottom: 24px;
+
+      font-size: 12px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #999;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: #777;
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 110px);
+      line-height: .9;
+      letter-spacing: -.055em;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    h1 span {
+      color: #666;
+    }
+
+    .intro {
+      max-width: 570px;
+      color: #aaa;
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 38px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: white;
+
+      padding: 14px 22px;
+
+      border-radius: 999px;
+
+      font-size: 13px;
+      cursor: pointer;
+
+      transition:
+        background .25s ease,
+        border .25s ease,
+        transform .25s ease;
+    }
+
+    .btn:hover {
+      background: rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.35);
+      transform: translateY(-2px);
+    }
+
+    .btn.primary {
+      background: white;
+      color: black;
+      border-color: white;
+    }
+
+    .btn.primary:hover {
+      background: #ddd;
+    }
+
+    /* =========================
+       ABOUT
+    ========================= */
+
+    section {
+      position: relative;
+      padding: 140px 8vw;
+    }
+
+    .section-label {
+      color: #777;
+      font-size: 11px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      max-width: 1200px;
+    }
+
+    .about-title {
+      font-size: clamp(38px, 5vw, 70px);
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .about-text {
+      color: #999;
+      line-height: 1.9;
+      font-size: 15px;
+    }
+
+    /* =========================
+       3D SHOWCASE
+    ========================= */
+
+    .showcase {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .showcase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .showcase-title {
+      font-size: clamp(40px, 6vw, 80px);
+      letter-spacing: -.05em;
+    }
+
+    .showcase-description {
+      max-width: 380px;
+      color: #777;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .model-card {
+      position: relative;
+      height: 620px;
+
+      border: 1px solid var(--line);
+      border-radius: 24px;
+
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at center,
+          #222 0%,
+          #0b0b0b 45%,
+          #050505 100%
+        );
+
+      cursor: pointer;
+    }
+
+    #modelCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .model-overlay {
+      position: absolute;
+      inset: auto 0 0 0;
+
+      padding: 30px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,.8),
+        transparent
+      );
+
+      pointer-events: none;
+    }
+
+    .model-name {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .model-meta {
+      margin-top: 5px;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .open-label {
+      font-size: 12px;
+      color: #aaa;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 15px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 60px 8vw;
+      border-top: 1px solid var(--line);
+
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+
+      color: #666;
+      font-size: 12px;
+    }
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+
+      z-index: 999;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 30px;
+
+      background: rgba(0,0,0,.88);
+
+      backdrop-filter: blur(15px);
+
+      opacity: 0;
+      pointer-events: none;
+
+      transition: opacity .3s ease;
+    }
+
+    .modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-window {
+      position: relative;
+
+      width: min(1200px, 95vw);
+      height: min(800px, 90vh);
+
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 24px;
+
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at center,
+          #222,
+          #050505 75%
+        );
+
+      transform: scale(.96);
+      transition: transform .3s ease;
+    }
+
+    .modal.active .modal-window {
+      transform: scale(1);
+    }
+
+    #modalCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .modal-info {
+      position: absolute;
+      left: 30px;
+      bottom: 25px;
+
+      pointer-events: none;
+    }
+
+    .modal-info h2 {
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    .modal-info p {
+      color: #777;
+      font-size: 12px;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+
+      width: 42px;
+      height: 42px;
+
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.2);
+
+      background: rgba(0,0,0,.5);
+      color: white;
+
+      font-size: 20px;
+
+      cursor: pointer;
+
+      z-index: 10;
+    }
+
+    .close-modal:hover {
+      background: white;
+      color: black;
+    }
+
+    .loading {
+      position: absolute;
+      inset: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #666;
+      font-size: 12px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+
+      pointer-events: none;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 800px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding-left: 6vw;
+        padding-right: 6vw;
+      }
+
+      section {
+        padding: 100px 6vw;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .showcase-header {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .model-card {
+        height: 480px;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVIGATION
+  ========================== -->
+
+  <nav>
+    <div class="logo">
+      CU
+    </div>
+
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#showcase">3D Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <main>
+
+    <section class="hero">
+
+      <canvas id="heroCanvas"></canvas>
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          3D Portfolio
+        </div>
+
+        <h1>
+          Chetniphat<br>
+          <span>Udornlai</span>
+        </h1>
+
+        <p class="intro">
+          Lect. Chetniphat Udornlai — educator, developer and
+          technology enthusiast. I explore the intersection of
+          technology, creativity and interactive digital experiences.
+        </p>
+
+        <div class="buttons">
+          <a class="btn primary" href="#showcase">
+            Explore 3D
+          </a>
+
+          <a class="btn" href="#about">
+            About Me
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+    ========================== -->
+
+    <section id="about">
+
+      <div class="section-label">
+        01 / About
+      </div>
+
+      <div class="about-grid">
+
+        <h2 class="about-title">
+          Teaching.<br>
+          Creating.<br>
+          Exploring.
+        </h2>
+
+        <div class="about-text">
+          <p>
+            Hello, I'm <strong>Lect. Chetniphat Udornlai</strong>.
+          </p>
+
+          <br>
+
+          <p>
+            My work focuses on technology, programming,
+            digital media and interactive experiences.
+            I enjoy experimenting with new technologies
+            and turning ideas into practical digital projects.
+          </p>
+
+          <br>
+
+          <p>
+            This portfolio uses WebGL and physically based
+            rendering to present selected 3D work directly
+            in the browser.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         3D SHOWCASE
+    ========================== -->
+
+    <section id="showcase" class="showcase">
+
+      <div class="showcase-header">
+
+        <div>
+          <div class="section-label">
+            02 / Selected 3D
+          </div>
+
+          <h2 class="showcase-title">
+            Digital Object
+          </h2>
+        </div>
+
+        <p class="showcase-description">
+          Interactive 3D model rendered with Three.js,
+          GLTFLoader and PBR materials.
+          Click the object to open the full-screen viewer.
+        </p>
+
+      </div>
+
+
+      <div class="model-card" id="openModel">
+
+        <canvas id="modelCanvas"></canvas>
+
+        <div class="loading" id="modelLoading">
+          Loading 3D Model
+        </div>
+
+        <div class="model-overlay">
+
+          <div>
+            <div class="model-name">
+              PBR Object
+            </div>
+
+            <div class="model-meta">
+              GLB / GLTF · WebGL · Three.js
+            </div>
+          </div>
+
+          <div class="open-label">
+            Click to Explore ↗
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer id="contact">
+
+    <div>
+      © 2026 Chetniphat Udornlai
+    </div>
+
+    <div>
+      3D Portfolio · Three.js
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
+       3D MODAL
+  ========================== -->
+
+  <div class="modal" id="modelModal">
+
+    <div class="modal-window">
+
+      <button
+        class="close-modal"
+        id="closeModal"
+        aria-label="Close"
+      >
+        ×
+      </button>
+
+      <canvas id="modalCanvas"></canvas>
+
+      <div class="modal-info">
+        <h2>PBR 3D Object</h2>
+        <p>
+          Drag to rotate · Scroll to zoom
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       THREE.JS
+  ========================== -->
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }
+  }
+  </script>
+
+
+  <script type="module">
+
+    import * as THREE from "three";
+
+    import { OrbitControls }
+      from "three/addons/controls/OrbitControls.js";
+
+    import { GLTFLoader }
+      from "three/addons/loaders/GLTFLoader.js";
+
+
+    /* =====================================================
+       CONFIG
+    ===================================================== */
+
+    /*
+      IMPORTANT
+
+      ถ้าใช้ไฟล์ใน public:
+
+      public/
+      └── models/
+          └── portfolio.glb
+
+      ให้ใช้:
+
+      const MODEL_URL = "/models/portfolio.glb";
+
+      หรือสามารถใช้ URL ของ GLB แบบ public ได้โดยตรง
+      เช่น:
+
+      const MODEL_URL =
+        "https://example.com/model.glb";
+    */
+
+    const MODEL_URL = "/models/portfolio.glb";
+
+
+    /* =====================================================
+       COMMON
+    ===================================================== */
+
+    const loader = new GLTFLoader();
+
+
+    function setupRenderer(canvas) {
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance"
+      });
+
+      renderer.setPixelRatio(
+        Math.min(window.devicePixelRatio, 2)
+      );
+
+      renderer.outputColorSpace =
+        THREE.SRGBColorSpace;
+
+      renderer.toneMapping =
+        THREE.ACESFilmicToneMapping;
+
+      renderer.toneMappingExposure = 1.15;
+
+      renderer.shadowMap.enabled = true;
+
+      renderer.shadowMap.type =
+        THREE.PCFSoftShadowMap;
+
+      return renderer;
+    }
+
+
+    function setupEnvironment(scene) {
+
+      /*
+        Fake studio lighting
+
+        ใช้ MeshPhysicalMaterial / MeshStandardMaterial
+        จาก GLB แล้วทำให้ PBR เห็น highlight ชัด
+      */
+
+      scene.background =
+        new THREE.Color(0x050505);
+
+
+      // Key light
+
+      const key = new THREE.DirectionalLight(
+        0xffffff,
+        4
+      );
+
+      key.position.set(
+        4,
+        6,
+        5
+      );
+
+      key.castShadow = true;
+
+      key.shadow.mapSize.width = 2048;
+      key.shadow.mapSize.height = 2048;
+
+      scene.add(key);
+
+
+      // Fill
+
+      const fill = new THREE.DirectionalLight(
+        0x8fb8ff,
+        2
+      );
+
+      fill.position.set(
+        -5,
+        2,
+        2
+      );
+
+      scene.add(fill);
+
+
+      // Rim
+
+      const rim = new THREE.DirectionalLight(
+        0xffd6b0,
+        3
+      );
+
+      rim.position.set(
+        2,
+        4,
+        -6
+      );
+
+      scene.add(rim);
+
+
+      // Soft ambient
+
+      const ambient =
+        new THREE.HemisphereLight(
+          0xffffff,
+          0x111111,
+          1.2
+        );
+
+      scene.add(ambient);
+
+
+      /*
+        Large area-like emissive planes
+        ช่วยสร้าง studio reflections
+      */
+
+      const createReflector = (
+        position,
+        scale,
+        color
+      ) => {
+
+        const geometry =
+          new THREE.PlaneGeometry(
+            2,
+            2
+          );
+
+        const material =
+          new THREE.MeshBasicMaterial({
+            color,
+            side: THREE.DoubleSide
+          });
+
+        const mesh =
+          new THREE.Mesh(
+            geometry,
+            material
+          );
+
+        mesh.position.copy(position);
+
+        mesh.scale.set(
+          scale.x,
+          scale.y,
+          scale.z
+        );
+
+        scene.add(mesh);
+
+        return mesh;
+      };
+
+      createReflector(
+        new THREE.Vector3(-4, 3, -2),
+        new THREE.Vector3(3, 5, 1),
+        0x222222
+      );
+
+      createReflector(
+        new THREE.Vector3(4, 4, 0),
+        new THREE.Vector3(3, 5, 1),
+        0x333333
+      );
+    }
+
+
+    /* =====================================================
+       LOAD MODEL
+    ===================================================== */
+
+    function loadModel(scene, callback) {
+
+      loader.load(
+
+        MODEL_URL,
+
+        (gltf) => {
+
+          const model = gltf.scene;
+
+          /*
+            Normalize model size
+          */
+
+          const box =
+            new THREE.Box3()
+              .setFromObject(model);
+
+          const size =
+            box.getSize(
+              new THREE.Vector3()
+            );
+
+          const center =
+            box.getCenter(
+              new THREE.Vector3()
+            );
+
+          const maxSize =
+            Math.max(
+              size.x,
+              size.y,
+              size.z
+            );
+
+          const targetSize = 3;
+
+          const scale =
+            targetSize / maxSize;
+
+          model.scale.setScalar(scale);
+
+          model.position.sub(
+            center.multiplyScalar(scale)
+          );
+
+
+          /*
+            Improve PBR materials
+          */
+
+          model.traverse(
+            (child) => {
+
+              if (
+                child.isMesh &&
+                child.material
+              ) {
+
+                child.castShadow = true;
+                child.receiveShadow = true;
+
+                const materials =
+                  Array.isArray(child.material)
+                    ? child.material
+                    : [child.material];
+
+                materials.forEach(
+                  (material) => {
+
+                    /*
+                      GLB materials normally already
+                      contain PBR values.
+
+                      These values only make sure that
+                      standard PBR materials render correctly.
+                    */
+
+                    if (
+                      material.isMeshStandardMaterial ||
+                      material.isMeshPhysicalMaterial
+                    ) {
+
+                      material.needsUpdate = true;
+
+                      /*
+                        Slightly boost roughness control
+                        without destroying imported values.
+                      */
+
+                      material.roughness =
+                        Math.max(
+                          0.08,
+                          material.roughness
+                        );
+                    }
+
+                  }
+                );
+
+              }
+
+            }
+          );
+
+
+          scene.add(model);
+
+          callback(model);
+
+        },
+
+        (progress) => {
+
+          if (progress.total) {
+
+            const percent =
+              progress.loaded /
+              progress.total *
+              100;
+
+            console.log(
+              `3D loading: ${percent.toFixed(0)}%`
+            );
+          }
+
+        },
+
+        (error) => {
+
+          console.error(
+            "Unable to load GLB:",
+            error
+          );
+
+          const loading =
+            document.getElementById(
+              "modelLoading"
+            );
+
+          if (loading) {
+
+            loading.innerText =
+              "Unable to load model";
+
+          }
+
+        }
+
+      );
+
+    }
+
+
+    /* =====================================================
+       HERO 3D
+    ===================================================== */
+
+    const heroCanvas =
+      document.getElementById(
+        "heroCanvas"
+      );
+
+    const heroRenderer =
+      setupRenderer(heroCanvas);
+
+    const heroScene =
+      new THREE.Scene();
+
+    const heroCamera =
+      new THREE.PerspectiveCamera(
+        35,
+        window.innerWidth /
+        window.innerHeight,
+        0.1,
+        100
+      );
+
+    heroCamera.position.set(
+      0,
+      0,
+      8
+    );
+
+    setupEnvironment(heroScene);
+
+
+    /*
+      Hero abstract geometry
+    */
+
+    const heroGeometry =
+      new THREE.IcosahedronGeometry(
+        2.3,
+        5
+      );
+
+    const heroMaterial =
+      new THREE.MeshPhysicalMaterial({
+
+        color: 0xeeeeee,
+
+        metalness: 0.85,
+
+        roughness: 0.12,
+
+        clearcoat: 1,
+
+        clearcoatRoughness: 0.08,
+
+        transmission: 0.03
+
+      });
+
+    const heroObject =
+      new THREE.Mesh(
+        heroGeometry,
+        heroMaterial
+      );
+
+    heroObject.position.set(
+      3.3,
+      0,
+      0
+    );
+
+    heroObject.rotation.set(
+      0.3,
+      0.4,
+      0
+    );
+
+    heroObject.castShadow = true;
+
+    heroScene.add(heroObject);
+
+
+    const heroClock =
+      new THREE.Clock();
+
+
+    function animateHero() {
+
+      requestAnimationFrame(
+        animateHero
+      );
+
+      const time =
+        heroClock.getElapsedTime();
+
+      heroObject.rotation.x =
+        time * 0.12;
+
+      heroObject.rotation.y =
+        time * 0.22;
+
+      heroObject.position.y =
+        Math.sin(time * 0.7) * 0.15;
+
+      heroRenderer.render(
+        heroScene,
+        heroCamera
+      );
+    }
+
+    animateHero();
+
+
+    /* =====================================================
+       SHOWCASE 3D
+    ===================================================== */
+
+    const modelCanvas =
+      document.getElementById(
+        "modelCanvas"
+      );
+
+    const modelRenderer =
+      setupRenderer(modelCanvas);
+
+    const modelScene =
+      new THREE.Scene();
+
+    const modelCamera =
+      new THREE.PerspectiveCamera(
+        35,
+        1,
+        0.1,
+        100
+      );
+
+    modelCamera.position.set(
+      0,
+      0.3,
+      6
+    );
+
+    setupEnvironment(modelScene);
+
+
+    /*
+      Ground
+    */
+
+    const ground =
+      new THREE.Mesh(
+
+        new THREE.CircleGeometry(
+          5,
+          64
+        ),
+
+        new THREE.MeshStandardMaterial({
+          color: 0x070707,
+          roughness: 0.28,
+          metalness: 0.4
+        })
+
+      );
+
+    ground.rotation.x =
+      -Math.PI / 2;
+
+    ground.position.y =
+      -1.6;
+
+    ground.receiveShadow = true;
+
+    modelScene.add(ground);
+
+
+    /*
+      Controls
+    */
+
+    const modelControls =
+      new OrbitControls(
+        modelCamera,
+        modelCanvas
+      );
+
+    modelControls.enableDamping = true;
+
+    modelControls.dampingFactor = 0.05;
+
+    modelControls.enablePan = false;
+
+    modelControls.minDistance = 3;
+
+    modelControls.maxDistance = 10;
+
+
+    let showcaseModel = null;
+
+
+    loadModel(
+      modelScene,
+      (model) => {
+
+        showcaseModel = model;
+
+        document.getElementById(
+          "modelLoading"
+        ).style.display = "none";
+
+      }
+    );
+
+
+    function resizeShowcase() {
+
+      const rect =
+        modelCanvas.getBoundingClientRect();
+
+      const width =
+        rect.width;
+
+      const height =
+        rect.height;
+
+      modelRenderer.setSize(
+        width,
+        height,
+        false
+      );
+
+      modelCamera.aspect =
+        width / height;
+
+      modelCamera.updateProjectionMatrix();
+
+    }
+
+
+    function animateShowcase() {
+
+      requestAnimationFrame(
+        animateShowcase
+      );
+
+      if (showcaseModel) {
+
+        showcaseModel.rotation.y +=
+          0.0025;
+
+      }
+
+      modelControls.update();
+
+      modelRenderer.render(
+        modelScene,
+        modelCamera
+      );
+    }
+
+    animateShowcase();
+
+
+    /* =====================================================
+       MODAL 3D VIEWER
+    ===================================================== */
+
+    const modal =
+      document.getElementById(
+        "modelModal"
+      );
+
+    const modalCanvas =
+      document.getElementById(
+        "modalCanvas"
+      );
+
+    const modalRenderer =
+      setupRenderer(modalCanvas);
+
+    const modalScene =
+      new THREE.Scene();
+
+    const modalCamera =
+      new THREE.PerspectiveCamera(
+        35,
+        1,
+        0.1,
+        100
+      );
+
+    modalCamera.position.set(
+      0,
+      0,
+      6
+    );
+
+    setupEnvironment(modalScene);
+
+
+    const modalControls =
+      new OrbitControls(
+        modalCamera,
+        modalCanvas
+      );
+
+    modalControls.enableDamping = true;
+
+    modalControls.dampingFactor = 0.05;
+
+    modalControls.enablePan = false;
+
+    modalControls.minDistance = 2;
+
+    modalControls.maxDistance = 12;
+
+
+    let modalModel = null;
+
+
+    loadModel(
+      modalScene,
+      (model) => {
+
+        modalModel = model;
+
+      }
+    );
+
+
+    function resizeModal() {
+
+      const rect =
+        modalCanvas.getBoundingClientRect();
+
+      const width =
+        rect.width;
+
+      const height =
+        rect.height;
+
+      if (
+        width === 0 ||
+        height === 0
+      ) {
+        return;
+      }
+
+      modalRenderer.setSize(
+        width,
+        height,
+        false
+      );
+
+      modalCamera.aspect =
+        width / height;
+
+      modalCamera.updateProjectionMatrix();
+
+    }
+
+
+    function animateModal() {
+
+      requestAnimationFrame(
+        animateModal
+      );
+
+      modalControls.update();
+
+      modalRenderer.render(
+        modalScene,
+        modalCamera
+      );
+    }
+
+    animateModal();
+
+
+    /* =====================================================
+       OPEN MODAL
+    ===================================================== */
+
+    document
+      .getElementById("openModel")
+      .addEventListener(
+        "click",
+        () => {
+
+          modal.classList.add(
+            "active"
+          );
+
+          document.body.style.overflow =
+            "hidden";
+
+          setTimeout(
+            resizeModal,
+            50
+          );
+
+        }
+      );
+
+
+    /* =====================================================
+       CLOSE MODAL
+    ===================================================== */
+
+    function closeModal() {
+
+      modal.classList.remove(
+        "active"
+      );
+
+      document.body.style.overflow =
+        "";
+
+    }
+
+
+    document
+      .getElementById("closeModal")
+      .addEventListener(
+        "click",
+        closeModal
+      );
+
+
+    modal.addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          event.target === modal
+        ) {
+
+          closeModal();
+
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          closeModal();
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       RESIZE
+    ===================================================== */
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        /*
+          Hero
+        */
+
+        heroRenderer.setSize(
+          window.innerWidth,
+          window.innerHeight,
+          false
+        );
+
+        heroCamera.aspect =
+          window.innerWidth /
+          window.innerHeight;
+
+        heroCamera.updateProjectionMatrix();
+
+
+        /*
+          Showcase
+        */
+
+        resizeShowcase();
+
+
+        /*
+          Modal
+        */
+
+        resizeModal();
+
+      }
+    );
+
+
+    /*
+      Initial size
+    */
+
+    heroRenderer.setSize(
+      window.innerWidth,
+      window.innerHeight,
+      false
+    );
+
+    resizeShowcase();
+
+
+  </script>
+
+</body>
+</html>
